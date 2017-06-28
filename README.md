@@ -1,4 +1,4 @@
-# geoiplookup
+# geoipfetch
 --------------------------------------------------------------------------------
 
 Geo Localization from a Given IP Address
@@ -19,7 +19,7 @@ First Stable Release
 Example:
 
 ```sh
-$ geoiplookup 216.58.222.14
+$ geoipfetch 216.58.222.14
 
 # Output
 IP: 216.58.222.14

@@ -4,7 +4,7 @@
 '''
 [ Script ]
 
-geoiplookup
+geoipfetch
 
 PT-br:
 Geo Localizacao com base no IP fornecido
@@ -13,7 +13,7 @@ EN:
 Geo Localization from a Given IP Address
 
 rlima@gmail.com
-$Id: geoiplookup, v 1 2017/06/28 rlima Exp rlima $
+$Id: geoipfetch, v 1 2017/06/28 rlima Exp rlima $
 
 [ License ]
 
@@ -76,11 +76,11 @@ if not re.match("^(([1]?[0-9]{1,2}|2([0-4][0-9]|5[0-5]))\.){3}([1]?[0-9]{1,2}|2(
     print "Invalid IP Address"
     exit(1)
 
-# Search funcion using geoiplookup.net
+# Search funcion using geoipfetch.net
 def geoIpLookupSite(queryIp):
     geoIpLookupArray = []
     utf8_parser = etree.XMLParser(encoding='utf-8')
-    geoIpLookupUrl = 'http://api.geoiplookup.net/?query=' + queryIp
+    geoIpLookupUrl = 'http://api.geoipfetch.net/?query=' + queryIp
     http = urllib3.PoolManager()
     geoIpRequest = http.request('GET', geoIpLookupUrl, preload_content=False)
     if geoIpRequest.status == 200:
