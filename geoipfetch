@@ -80,7 +80,7 @@ if not re.match("^(([1]?[0-9]{1,2}|2([0-4][0-9]|5[0-5]))\.){3}([1]?[0-9]{1,2}|2(
 def geoIpLookupSite(queryIp):
     geoIpLookupArray = []
     utf8_parser = etree.XMLParser(encoding='utf-8')
-    geoIpLookupUrl = 'http://api.geoipfetch.net/?query=' + queryIp
+    geoIpLookupUrl = 'http://api.geoiplookup.net/?query=' + queryIp
     http = urllib3.PoolManager()
     geoIpRequest = http.request('GET', geoIpLookupUrl, preload_content=False)
     if geoIpRequest.status == 200:
