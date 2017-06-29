@@ -13,7 +13,7 @@ EN:
 Geo Localization from a Given IP Address
 
 rlima@gmail.com
-$Id: geoipfetch, v 1 2017/06/28 rlima Exp rlima $
+$Id: geoipfetch, v 2 2017/06/29 rlima Exp rlima $
 
 [ License ]
 
@@ -64,17 +64,34 @@ written authorization.
 [ Changelog ]
 
 [28/06/2017] - v1 - First Stable Release.
+[29/06/2017] - v2 - Now work with site url.
 
 '''
 
-import os, re, sys, json, urllib3, traceback
+import os, re, sys, socket, json, urllib3, traceback
 from lxml import etree
 
-# Receive IP from command-line and validate it
-queryIp = sys.argv[1]
-if not re.match("^(([1]?[0-9]{1,2}|2([0-4][0-9]|5[0-5]))\.){3}([1]?[0-9]{1,2}|2([0-4][0-9]|5[0-5]))$", queryIp):
-    print "Invalid IP Address"
-    exit(1)
+# Receive search from command-line and validate it
+querySearch = sys.argv[1]
+
+queryUrl = re.match("^(http[s]?://)?([a-z.]{1,})[/]?([a-z]{1,})?(/.*)?$", querySearch)
+
+if queryUrl:
+    querAddress = queryUrl.group(2)
+    try:
+        queryIp = socket.gethostbyname(querAddress)
+    except:
+        print "Invalid Address"
+        exit(1)
+
+try:
+    queryIp
+except:
+    if re.match("^(([1]?[0-9]{1,2}|2([0-4][0-9]|5[0-5]))\.){3}([1]?[0-9]{1,2}|2([0-4][0-9]|5[0-5]))$", querySearch):
+        queryIp = querySearch
+    else:
+        print "Invalid IP Address"
+        exit(1)
 
 # Search funcion using geoipfetch.net
 def geoIpLookupSite(queryIp):
