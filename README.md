@@ -1,7 +1,7 @@
 # geoipfetch
 --------------------------------------------------------------------------------
 
-Geo Localization from a Given IP Address
+Geo Localization from a Given IP Address or Site URL
 
 # Notice
 --------------------------------------------------------------------------------
