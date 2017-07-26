@@ -16,6 +16,8 @@ Geo Localization from a Given IP Address or Site URL
 First Stable Release
 * **29/06/2017 - v2**
 Now work with site url.
+* **26/07/2017 - v2.1**
+Handling with "no command line parameter given"
 
 # How to use it
 --------------------------------------------------------------------------------
@@ -23,6 +25,17 @@ Now work with site url.
 Example:
 
 ```sh
+
+# Usage
+
+$ geoipfetch 
+No Address or IP given
+
+Usage: give a valid URL or IP Address, like:
+
+        geoipfetch https://www.google.com
+OR
+        geoipfetch 216.58.222.3
 
 # Search by IP
 

@@ -65,6 +65,7 @@ written authorization.
 
 [28/06/2017] - v1 - First Stable Release.
 [29/06/2017] - v2 - Now work with site url.
+[26/07/2017] - v2.1 - Handling with "no command line parameter given"
 
 '''
 
@@ -72,7 +73,16 @@ import os, re, sys, socket, json, urllib3, traceback
 from lxml import etree
 
 # Receive search from command-line and validate it
-querySearch = sys.argv[1]
+commandLineArraySize = len(sys.argv)
+if commandLineArraySize == 2:
+    querySearch = sys.argv[1]
+else:
+    print "No Address or IP given\n"
+    print "Usage: give a valid URL or IP Address, like:\n"
+    print "\t" + sys.argv[0] + " https://www.google.com"
+    print "OR"
+    print "\t" + sys.argv[0] + " 216.58.222.3\n"
+    exit(1)
 
 queryUrl = re.match("^(http[s]?://)?([a-z.]{1,})[/]?([a-z]{1,})?(/.*)?$", querySearch)
 
