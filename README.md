@@ -18,6 +18,8 @@ First Stable Release
 Now work with site url.
 * **26/07/2017 - v2.1**
 Handling with "no command line parameter given"
+* **31/07/2017 - v2.2**
+Handling with "no command line parameter given"
 
 # How to use it
 --------------------------------------------------------------------------------
