@@ -13,7 +13,7 @@ EN:
 Geo Localization from a Given IP Address
 
 rlima@gmail.com
-$Id: geoipfetch, v 2.2 2017/07/31 rlima Exp rlima $
+$Id: geoipfetch, v 2.3 2017/08/09 rlima Exp rlima $
 
 [ License ]
 
@@ -67,6 +67,7 @@ written authorization.
 [29/06/2017] - v2 - Now work with site url.
 [26/07/2017] - v2.1 - Handling with "no command line parameter given"
 [31/07/2017] - v2.2 - Handling with "no command line parameter given"
+[09/08/2017] - v2.3 - Search in geoipfetch.net and/or ip-api.com in a single function
 
 '''
 
@@ -105,43 +106,36 @@ except:
         print "Invalid IP Address"
         exit(1)
 
-# Search funcion using geoipfetch.net
-def geoIpLookupSite(queryIp):
-    geoIpLookupArray = []
+# Search funcion using geoipfetch.net and/or ip-api.com
+def ipInfoFetch(queryIp):
+    ipDataArray = []
     utf8_parser = etree.XMLParser(encoding='utf-8')
     geoIpLookupUrl = 'http://api.geoiplookup.net/?query=' + queryIp
+    ipApiUrl = 'http://ip-api.com/json/' + queryIp
     http = urllib3.PoolManager()
     geoIpRequest = http.request('GET', geoIpLookupUrl, preload_content=False)
     if geoIpRequest.status == 200:
         geoIpXmlFile = geoIpRequest.read()
         geoIpXml = etree.fromstring(geoIpXmlFile, parser=utf8_parser)
-        geoIpLookupArray.append(geoIpXml[0][0][0].text)
-        geoIpLookupArray.append(geoIpXml[0][0][2].text)
-        geoIpLookupArray.append(geoIpXml[0][0][3].text)
-        geoIpLookupArray.append(geoIpXml[0][0][5].text)
-    return geoIpLookupArray
+        ipDataArray.append(geoIpXml[0][0][0].text)
+        ipDataArray.append(geoIpXml[0][0][2].text)
+        ipDataArray.append(geoIpXml[0][0][3].text)
+        ipDataArray.append(geoIpXml[0][0][5].text)
+    else:
+        ipApiRequest = http.request('GET', ipApiUrl, preload_content=False)
+        if ipApiRequest.status == 200:
+            ipApiJson = json.load(ipApiRequest)
+            ipDataArray.append(ipApiJson["query"])
+            ipDataArray.append(ipApiJson["isp"])
+            ipDataArray.append(ipApiJson["city"])
+            ipDataArray.append(ipApiJson["country"])
 
-# Search function using ip-api.com
-def ipApiSite(queryIp):
-    ipApiArray = []
-    ipApiUrl = 'http://ip-api.com/json/' + queryIp
-    http = urllib3.PoolManager()
-    ipApiRequest = http.request('GET', ipApiUrl, preload_content=False)
-    if ipApiRequest.status == 200:
-        ipApiJson = json.load(ipApiRequest)
-        ipApiArray.append(ipApiJson["query"])
-        ipApiArray.append(ipApiJson["isp"])
-        ipApiArray.append(ipApiJson["city"])
-        ipApiArray.append(ipApiJson["country"])
-    return ipApiArray
+    return ipDataArray
 
 def main():
     ipInforArray = []
     if len(ipInforArray) == 0:
-        ipInforArray = geoIpLookupSite(queryIp)
-
-    if len(ipInforArray) == 0:
-        ipInforArray = ipApiSite(queryIp)
+        ipInforArray = ipInfoFetch(queryIp)
 
     if len(ipInforArray) == 0:
         print "Unable to Check IP Address, try again later"

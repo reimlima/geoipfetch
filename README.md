@@ -20,6 +20,8 @@ Now work with site url.
 Handling with "no command line parameter given"
 * **31/07/2017 - v2.2**
 Handling with "no command line parameter given"
+* **09/08/2017] - v2.3**
+Search in geoipfetch.net and/or ip-api.com in a single function
 
 # How to use it
 --------------------------------------------------------------------------------
