@@ -22,6 +22,8 @@ Handling with "no command line parameter given"
 Handling with "no command line parameter given"
 * **09/08/2017 - v2.3**
 Search in geoipfetch.net and/or ip-api.com in a single function
+* **31/08/2017 - v2.4**
+Bug Fix - Handling with numbers un the site url.
 
 # How to use it
 --------------------------------------------------------------------------------
