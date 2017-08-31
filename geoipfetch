@@ -13,7 +13,7 @@ EN:
 Geo Localization from a Given IP Address
 
 rlima@gmail.com
-$Id: geoipfetch, v 2.3 2017/08/09 rlima Exp rlima $
+$Id: geoipfetch, v 2.4 2017/08/31 rlima Exp rlima $
 
 [ License ]
 
@@ -68,7 +68,7 @@ written authorization.
 [26/07/2017] - v2.1 - Handling with "no command line parameter given".
 [31/07/2017] - v2.2 - Handling with "no command line parameter given".
 [09/08/2017] - v2.3 - Search in geoipfetch.net and/or ip-api.com in a single function.
-[31/08/2017] - v2.4 - Bug Fix - Handling with numbers un the site url.
+[31/08/2017] - v2.4 - Bug Fix - Handling with numbers in site url.
 
 '''
 
